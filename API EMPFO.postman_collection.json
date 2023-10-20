@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "f3bbeb71-0a9b-4747-9ecf-e068f0980459",
+		"name": "API EMPFO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25477242"
+	},
+	"item": [
+		{
+			"name": "Buscar usuarios",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/private/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"private",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar usuario por id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/private/accountById/47eddf96-9b33-47e1-a75c-f7375d0a6854",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"private",
+						"accountById",
+						"47eddf96-9b33-47e1-a75c-f7375d0a6854"
+					],
+					"query": [
+						{
+							"key": "AUTHORIZATION",
+							"value": "production",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar senha",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPassword\":\"belezannnn\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/private/updateAccount/47eddf96-9b33-47e1-a75c-f7375d0a6854?AUTHORIZATION=production",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"private",
+						"updateAccount",
+						"47eddf96-9b33-47e1-a75c-f7375d0a6854"
+					],
+					"query": [
+						{
+							"key": "AUTHORIZATION",
+							"value": "production"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Info API",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"joaopedr@teste.com\",\r\n  \"password\": \"teste\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/private/deleteAccount/42802c56-aae4-45d5-ab62-ffe6656b5628",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"private",
+						"deleteAccount",
+						"42802c56-aae4-45d5-ab62-ffe6656b5628"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar usuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/registerUsers?AUTHORIZATION=production",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"registerUsers"
+					],
+					"query": [
+						{
+							"key": "AUTHORIZATION",
+							"value": "production"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,45 @@
+import { UserModel } from "../model/model";
+import { knex } from "../connectDB";
+
+export class Conta {
+  public static async cadastrarConta(usuario: UserModel): Promise<boolean> {
+    return knex("usuarios").insert(usuario);
+  }
+
+  public static async getUsers(
+    id_usuario?: string | undefined
+  ): Promise<UserModel[]> {
+    let sql = knex("usuarios").select("*").orderBy("id");
+    if (id_usuario) sql.where("id_usuario", id_usuario);
+    return sql;
+  }
+
+  public static async getUserById(id: string): Promise<UserModel | null> {
+    const user = await knex("usuarios")
+      .select("*") 
+      .where("id", id) 
+      .first();
+
+    return user || null;
+  }
+
+  public static async updateUserPassword(
+    id_usuario: string,
+    newPassword: string
+  ): Promise<boolean> {
+    const user = await knex("usuarios")
+      .where("id", id_usuario)
+      .update({ password: newPassword });
+
+    return user > 0;
+  }
+
+  public static async deleteUser(id_usuario: string): Promise<boolean> {
+    const user = await knex("usuarios")
+      .select("usuarios")
+      .where("id", id_usuario)
+      .delete();
+
+    return user > 0;
+  }
+}
