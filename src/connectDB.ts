@@ -8,7 +8,7 @@ export const knex = Knex({
     port: Number(process.env.PORT_BD),
     user: process.env.USER_BD,
     password: process.env.PASSWORD_BD,
-    database: process.env.NOME_BD,
+    database: process.env.NAME_BD,
   },
   pool: {
     min: 1,
