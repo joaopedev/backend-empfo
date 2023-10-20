@@ -35,16 +35,16 @@ PORT= exemple
 # Secret for authorizing private routes
 AUTHORIZATION= secret
 
-# host do banco de dados 
+# Database host
 HOST_BD=thisIsMyLocalHost
 
-# nome do banco de dados
+# Database name
 NOME_BD=myDataBase
 
-# usuario do banco de dados 
+# Database user 
 USER_BD=you_adminer_user
 
-# senha do banco de dados
+# Database password
 PASSWORD_BD=super_secret
 EOL
 ```
