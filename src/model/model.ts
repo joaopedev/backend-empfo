@@ -11,6 +11,8 @@ export enum HTTP_ERRORS {
     id?: string;
     email: string;
     password: string;
+    passwordResetToken?: string;
+    passwordResetExpires?: Date;
   }
   
   export enum ErrosBDModel {
