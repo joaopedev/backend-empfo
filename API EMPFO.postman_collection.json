@@ -79,7 +79,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"newPassword\":\"belezannnn\"\r\n}",
+					"raw": "{\r\n    \"newPassword\":\"trocadairmao\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,7 +87,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/private/updateAccount/47eddf96-9b33-47e1-a75c-f7375d0a6854?AUTHORIZATION=production",
+					"raw": "http://localhost:3000/private/updateAccount/b773729e-039b-4c89-9e2f-91a459fba146?AUTHORIZATION=production",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -96,7 +96,7 @@
 					"path": [
 						"private",
 						"updateAccount",
-						"47eddf96-9b33-47e1-a75c-f7375d0a6854"
+						"b773729e-039b-4c89-9e2f-91a459fba146"
 					],
 					"query": [
 						{

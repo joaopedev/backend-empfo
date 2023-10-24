@@ -21,7 +21,6 @@ With the database running, install the `knex` CLI to perform migrations and seed
 
 ```sh
 knex migrate:latest
-knex seed:run
 ```
 
 ## Environment variables 
