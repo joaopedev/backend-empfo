@@ -23,6 +23,15 @@ export class Conta {
     return user || null;
   }
 
+  public static async getUserByEmail(email: string): Promise<UserModel | null> {
+    const user = await knex("usuarios")
+      .select("*") 
+      .where("email", email) 
+      .first();
+
+    return user || null;
+  }
+
   public static async updateUserPassword(
     id_usuario: string,
     newPassword: string

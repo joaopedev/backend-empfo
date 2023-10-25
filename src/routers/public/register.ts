@@ -13,13 +13,13 @@ export = (app: Application) => {
     body("password").exists(),
     (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
-  
+
       if (errors.isEmpty()) {
         const { email, password }: UserModel = req.body;
-  
+
         if (email && password) {
           const hashPassword = encodePassword(password);
-  
+
           Usuario.createUser(email, hashPassword)
             .then(() => {
               res.json({ message: "Usuário cadastrado com sucesso" });
@@ -29,7 +29,39 @@ export = (app: Application) => {
               next(createError(HTTP_ERRORS.ERRO_BANCO, tratarErro(erro)));
             });
         } else {
-          next(createError(HTTP_ERRORS.SOLICITACAO, "Email ou senha inválidos"));
+          next(
+            createError(HTTP_ERRORS.SOLICITACAO, "Email ou senha inválidos")
+          );
+        }
+      } else {
+        next(
+          createError(HTTP_ERRORS.SOLICITACAO, JSON.stringify(errors.array()))
+        );
+      }
+    }
+  );
+  app.get(
+    "/forgotPassword/",
+    body("email").isEmail(),
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+
+      if (errors.isEmpty()) {
+        const { email }: UserModel = req.body;
+
+        if (email) {
+          Usuario.forgotPassword(email)
+            .then(() => {
+              res.json({ message: "Conta recuperada com sucesso" });
+            })
+            .catch((erro) => {
+              console.error(erro);
+              next(createError(HTTP_ERRORS.ERRO_BANCO, tratarErro(erro)));
+            });
+        } else {
+          next(
+            createError(HTTP_ERRORS.SOLICITACAO, "Email resgatado com sucesso")
+          );
         }
       } else {
         next(
