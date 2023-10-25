@@ -56,7 +56,7 @@ export = (app: Application) => {
     }
   );
 
-  app.put('/private/updateAccount/:id', (req, res, next) => {
+  app.put('/private/updateAccount/:id', (req: Request, res: Response, next: NextFunction) => {
     const id_usuario = req.params.id;
     const newPassword = req.body.newPassword;
     const hashPassword = encodePassword(newPassword)
@@ -74,7 +74,7 @@ export = (app: Application) => {
       });
   });
 
-  app.delete('/private/deleteAccount/:id', (req, res, next) => {
+  app.delete('/private/deleteAccount/:id', (req: Request, res: Response, next: NextFunction) => {
     const id_usuario = req.params.id; 
   
     Conta.deleteUser(id_usuario)
