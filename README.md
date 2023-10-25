@@ -37,14 +37,21 @@ AUTHORIZATION= secret
 # Database host
 HOST_BD=thisIsMyLocalHost
 
-# Database name
-NOME_BD=myDataBase
+# Database port
+PORT_BD=5432
 
 # Database user 
 USER_BD=you_adminer_user
 
 # Database password
 PASSWORD_BD=super_secret
+
+# Database name
+NAME_BD=myDataBase
+
+# Jw token
+JW_TOKEN='stringToken'
+
 EOL
 ```
 
