@@ -67,9 +67,12 @@
 			"response": []
 		},
 		{
-			"name": "Alterar senha",
+			"name": "Esqueci minha senha",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [
 					{
 						"key": "AUTHORIZATION",
@@ -79,7 +82,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"newPassword\":\"trocadairmao\"\r\n}",
+					"raw": "{\r\n    \"email\": \"yaghuinhomatheus@teste.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,21 +90,20 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/private/updateAccount/b773729e-039b-4c89-9e2f-91a459fba146?AUTHORIZATION=production",
+					"raw": "http://localhost:3000/forgotPassword",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"private",
-						"updateAccount",
-						"b773729e-039b-4c89-9e2f-91a459fba146"
+						"forgotPassword"
 					],
 					"query": [
 						{
 							"key": "AUTHORIZATION",
-							"value": "production"
+							"value": "production",
+							"disabled": true
 						}
 					]
 				}
@@ -140,6 +142,48 @@
 					"port": "3000",
 					"path": [
 						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar senha",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPassword\":\"trocadairmao\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/private/updateAccount/b7280c09-979a-4543-affb-b45389f35c13?AUTHORIZATION=production",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"private",
+						"updateAccount",
+						"b7280c09-979a-4543-affb-b45389f35c13"
+					],
+					"query": [
+						{
+							"key": "AUTHORIZATION",
+							"value": "production"
+						}
 					]
 				}
 			},
@@ -194,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"raw": "{\r\n  \"email\": \"yaghuinhomatheus@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -215,6 +259,74 @@
 						{
 							"key": "AUTHORIZATION",
 							"value": "production"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login?AUTHORIZATION=PRODUCTION",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "AUTHORIZATION",
+							"value": "PRODUCTION"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login falha",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"testa\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login?AUTHORIZATION=PRODUCTION",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "AUTHORIZATION",
+							"value": "PRODUCTION"
 						}
 					]
 				}
