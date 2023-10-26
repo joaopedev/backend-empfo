@@ -66,8 +66,8 @@ export class Usuario {
         to: "joaopedev@outlook.com",
         subject: "Recuperação de Senha",
         html: `<p>Olá ${user.email},</p>
-        <p>Você solicitou a redefinição da sua senha. Clique no link abaixo para criar uma nova senha:</p>
-        <p><a href="http://seu_site.com/resetPassword/${resetToken}">Redefinir Senha</a></p>
+        <p>Você solicitou a redefinição da sua senha. Utilize este token para recuperar a senha:</p>
+        <p>${resetToken}</p>
         <p>Se você não solicitou a redefinição de senha, ignore este e-mail.</p>`,
       };
 

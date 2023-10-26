@@ -23,6 +23,16 @@ export class Conta {
     return user || null;
   }
 
+  public static async forgotPassword(email: string, token: string): Promise<UserModel | null> {
+    const user = await knex("usuarios")
+      .select("*")
+      .where("passwordResetToken", token) 
+      .where("email", email) 
+      .first();
+
+    return user || null;
+  }
+
   public static async getUserByEmail(email: string): Promise<UserModel | null> {
     const user = await knex("usuarios")
       .select("*") 

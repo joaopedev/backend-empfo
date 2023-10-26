@@ -74,6 +74,24 @@ export = (app: Application) => {
       });
   });
 
+  app.put('/private/forgotWithToken/:token', (req: Request, res: Response, next: NextFunction) => {
+    const id_usuario = req.params.id;
+    const newPassword = req.body.newPassword;
+    const hashPassword = encodePassword(newPassword)
+  
+    Conta.updateUserPassword(id_usuario, hashPassword)
+      .then((result) => {
+        if (result) {
+          res.json({ message: "Senha atualizada com sucesso" });
+        } else {
+          res.status(404).json({ message: "Usuário não encontrado" });
+        }
+      })
+      .catch((erro) => {
+        next(createError(HTTP_ERRORS.ERRO_INTERNO, erro));
+      });
+  });
+
   app.delete('/private/deleteAccount/:id', (req: Request, res: Response, next: NextFunction) => {
     const id_usuario = req.params.id; 
   
