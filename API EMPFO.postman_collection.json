@@ -44,7 +44,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/private/accountById/47eddf96-9b33-47e1-a75c-f7375d0a6854",
+					"raw": "http://localhost:3000/private/accountById/c79a4a33-0c5a-49e8-8f4d-efcde7c33300",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -53,7 +53,7 @@
 					"path": [
 						"private",
 						"accountById",
-						"47eddf96-9b33-47e1-a75c-f7375d0a6854"
+						"c79a4a33-0c5a-49e8-8f4d-efcde7c33300"
 					],
 					"query": [
 						{
@@ -210,7 +210,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/private/deleteAccount/42802c56-aae4-45d5-ab62-ffe6656b5628",
+					"raw": "http://localhost:3000/private/deleteAccount/39c0b814-4b29-465c-9277-3722fec2bbec",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -219,7 +219,7 @@
 					"path": [
 						"private",
 						"deleteAccount",
-						"42802c56-aae4-45d5-ab62-ffe6656b5628"
+						"39c0b814-4b29-465c-9277-3722fec2bbec"
 					]
 				}
 			},
@@ -238,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"yaghuinhomatheus@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"raw": "{\r\n  \"email\": \"teste@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -272,7 +272,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"raw": "{\r\n  \"email\": \"teste@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

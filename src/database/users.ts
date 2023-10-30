@@ -1,7 +1,7 @@
 import { knex } from "../connectDB";
 import { UserModel } from "../model/model";
 import nodemailer from "nodemailer";
-import { generateToken } from "../utils/bcrypt";
+import { generateToken, comparePasswords } from "../utils/bcrypt";
 
 export class Usuario {
   public static loginUser(email: string, senha: string): Promise<UserModel> {
@@ -9,12 +9,16 @@ export class Usuario {
       knex("usuarios")
         .select("*")
         .where("email", email)
-        .andWhere("password", senha)
-        .then((usuario) => {
-          if (usuario.length > 0) {
-            resolve(usuario[0]);
+        .then((usuarios) => {
+          if (usuarios.length > 0) {
+            const usuario: UserModel = usuarios[0];
+            if (comparePasswords(senha, usuario.password)) {
+              resolve(usuario);
+            } else {
+              reject("Credenciais inválidas");
+            }
           } else {
-            reject("Nenhum usuario encontrado");
+            reject("Nenhum usuário encontrado");
           }
         })
         .catch((erro) => {
