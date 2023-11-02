@@ -15,7 +15,7 @@ export class Usuario {
             if (comparePasswords(senha, usuario.password)) {
               resolve(usuario);
             } else {
-              reject("Credenciais inválidas");
+              reject("Senha inválidas");
             }
           } else {
             reject("Nenhum usuário encontrado");
@@ -27,14 +27,45 @@ export class Usuario {
     });
   }
 
-  public static createUser(email: string, password: string): Promise<boolean> {
-    const user: UserModel = { email, password };
-    return knex("usuarios").insert(user);
+  public static createUser(
+    email: string,
+    password: string
+  ): Promise<UserModel> {
+    return new Promise((resolve, reject) => {
+      if (password.length < 8) {
+        reject("A senha deve ter pelo menos 8 caracteres");
+        return;
+      }
+
+      knex("usuarios")
+        .where({ email: email })
+        .first()
+        .then((existingUser) => {
+          if (existingUser) {
+            reject("Este email já está em uso");
+          } else {
+            const user: UserModel = { email, password };
+            knex("usuarios")
+              .insert(user)
+              .then(() => {
+                resolve(user);
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   public static async forgotPassword(email: string): Promise<boolean> {
     try {
-      const user: UserModel = await knex("usuarios").where("email", email).first();
+      const user: UserModel = await knex("usuarios")
+        .where("email", email)
+        .first();
 
       if (!user) {
         throw new Error("Usuário não encontrado");
@@ -61,8 +92,8 @@ export class Usuario {
         port: 2525,
         auth: {
           user: "fc21c9c3a78b2a",
-          pass: "0d33ae7055934c"
-        }
+          pass: "0d33ae7055934c",
+        },
       });
 
       const mailOptions = {

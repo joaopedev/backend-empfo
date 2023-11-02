@@ -11,7 +11,7 @@ export = (app: Application) => {
     "/registerUsers",
     body("email").isEmail(),
     body("password").exists(),
-    (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
 
       if (errors.isEmpty()) {
@@ -20,7 +20,7 @@ export = (app: Application) => {
         if (email && password) {
           const hashPassword = encodePassword(password);
 
-          Usuario.createUser(email, hashPassword)
+          await Usuario.createUser(email, hashPassword)
             .then(() => {
               res.json({ message: "Usuário cadastrado com sucesso" });
             })
@@ -43,14 +43,14 @@ export = (app: Application) => {
   app.get(
     "/forgotPassword/",
     body("email").isEmail(),
-    (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
 
       if (errors.isEmpty()) {
         const { email }: UserModel = req.body;
 
         if (email) {
-          Usuario.forgotPassword(email)
+          await Usuario.forgotPassword(email)
             .then(() => {
               res.json({ message: "Conta recuperada com sucesso" });
             })

@@ -7,7 +7,7 @@ This is API Restful for app services mobile Empfo.
 - Node.js
 - Docker
 
-## Data Base
+## Database
 
 This application comes with a `docker-compose.yml` file used to configure a PostgreSQL database on the host.
 
@@ -57,7 +57,7 @@ After importing the collection and making the necessary adaptations, you are rea
 
 4. With created users, the routes for forgot password and update password can be used.
 
-## Migrations e Seeding
+## Migrations
 
 With the database running, install the `knex` CLI to perform migrations and seeding.
 
