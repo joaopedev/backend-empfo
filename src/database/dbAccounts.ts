@@ -2,10 +2,6 @@ import { UserModel } from "../model/model";
 import { knex } from "../connectDB";
 
 export class Conta {
-  public static async cadastrarConta(usuario: UserModel): Promise<boolean> {
-    return knex("usuarios").insert(usuario);
-  }
-
   public static async getUsers(
     id_usuario?: string | undefined
   ): Promise<UserModel[]> {
@@ -15,19 +11,19 @@ export class Conta {
   }
 
   public static async getUserById(id: string): Promise<UserModel | null> {
-    const user = await knex("usuarios")
-      .select("*") 
-      .where("id", id) 
-      .first();
+    const user = await knex("usuarios").select("*").where("id", id).first();
 
     return user || null;
   }
 
-  public static async forgotPassword(email: string, token: string): Promise<UserModel | null> {
+  public static async forgotPassword(
+    email: string,
+    token: string
+  ): Promise<UserModel | null> {
     const user = await knex("usuarios")
       .select("*")
-      .where("passwordResetToken", token) 
-      .where("email", email) 
+      .where("passwordResetToken", token)
+      .where("email", email)
       .first();
 
     return user || null;
@@ -35,8 +31,8 @@ export class Conta {
 
   public static async getUserByEmail(email: string): Promise<UserModel | null> {
     const user = await knex("usuarios")
-      .select("*") 
-      .where("email", email) 
+      .select("*")
+      .where("email", email)
       .first();
 
     return user || null;

@@ -3,24 +3,24 @@ import createError from "http-errors";
 import { Usuario } from "../../database/users";
 import { Application, NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { comparePasswords } from "../../utils/bcrypt";
 require("dotenv").config();
 
 export = (app: Application) => {
   app.post(
-    '/login',
-    body('email').notEmpty(),
-    body('password').exists(),
-    (req: Request, res: Response, next: NextFunction) => {
+    "/login",
+    body("email").notEmpty(),
+    body("password").exists(),
+    async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
-  
+
       if (errors.isEmpty()) {
         const email: string = req.body.email;
         const password: string = req.body.password;
-  
+
         if (email) {
-          Usuario.loginUser(email, password)
+          await Usuario.loginUser(email, password)
             .then((usuario) => {
               if (usuario) {
                 if (comparePasswords(password, usuario.password)) {
@@ -31,19 +31,19 @@ export = (app: Application) => {
                     },
                     `${process.env.JW_TOKEN}`,
                     {
-                      expiresIn: '1h',
+                      expiresIn: "1h",
                     }
                   );
-  
+
                   res.json({
-                    message: 'Usuário logado com sucesso',
+                    message: "Usuário logado com sucesso",
                     token: token,
                   });
                 } else {
-                  res.status(401).json({ message: 'Credenciais inválidas' });
+                  res.status(401).json({ message: "Credenciais inválidas" });
                 }
               } else {
-                res.status(401).json({ message: 'Credenciais inválidas' });
+                res.status(401).json({ message: "Credenciais inválidas" });
               }
             })
             .catch((erro) => {
@@ -51,11 +51,13 @@ export = (app: Application) => {
               next(createError(HTTP_ERRORS.ERRO_BANCO, erro));
             });
         } else {
-          next(createError(HTTP_ERRORS.ERRO_BANCO, 'Email não pode ser nulo'));
+          next(createError(HTTP_ERRORS.ERRO_BANCO, "Email não pode ser nulo"));
         }
       } else {
-        next(createError(HTTP_ERRORS.SOLICITACAO, JSON.stringify(errors.array())));
+        next(
+          createError(HTTP_ERRORS.SOLICITACAO, JSON.stringify(errors.array()))
+        );
       }
     }
   );
-  };
+};
