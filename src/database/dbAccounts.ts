@@ -1,4 +1,4 @@
-import { UserModel } from "../model/model";
+import { UserModel } from "../models/model";
 import { knex } from "../connectDB";
 
 export class Conta {

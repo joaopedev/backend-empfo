@@ -1,5 +1,5 @@
 import { body, validationResult } from "express-validator";
-import { HTTP_ERRORS, UserModel } from "../../model/model";
+import { HTTP_ERRORS, UserModel } from "../../models/model";
 import createError from "http-errors";
 import { Usuario } from "../../database/users";
 import { Application, NextFunction, Request, Response } from "express";
@@ -10,10 +10,10 @@ export = (app: Application) => {
   app.post(
     "/registerUsers",
     body("email").isEmail(),
-    body("password").exists(),
+    body("password").exists().isLength({ min: 8 }).withMessage("A senha deve conter pelo menos 8 caracteres"),
     async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
-
+      console.log(errors)
       if (errors.isEmpty()) {
         const { email, password }: UserModel = req.body;
 
@@ -26,16 +26,19 @@ export = (app: Application) => {
             })
             .catch((erro) => {
               console.error(erro);
-              next(createError(HTTP_ERRORS.ERRO_BANCO, tratarErro(erro)));
+              next(createError(HTTP_ERRORS.BAD_REQUEST, tratarErro(erro)));
             });
         } else {
           next(
-            createError(HTTP_ERRORS.SOLICITACAO, "Email ou senha inválidos")
+            createError(HTTP_ERRORS.BAD_REQUEST, "Email ou senha inválidos")
           );
         }
       } else {
         next(
-          createError(HTTP_ERRORS.SOLICITACAO, JSON.stringify(errors.array()))
+          createError(
+            HTTP_ERRORS.VALIDACAO_DE_DADOS,
+            JSON.stringify(errors.array())
+          )
         );
       }
     }
@@ -52,20 +55,24 @@ export = (app: Application) => {
         if (email) {
           await Usuario.forgotPassword(email)
             .then(() => {
-              res.json({ message: "Conta recuperada com sucesso" });
+              res.json({
+                message:
+                  "Foi enviado email de recuperação para o email cadastrado",
+              });
             })
             .catch((erro) => {
               console.error(erro);
-              next(createError(HTTP_ERRORS.ERRO_BANCO, tratarErro(erro)));
+              next(createError(HTTP_ERRORS.BAD_REQUEST, tratarErro(erro)));
             });
         } else {
-          next(
-            createError(HTTP_ERRORS.SOLICITACAO, "Email resgatado com sucesso")
-          );
+          next(createError(HTTP_ERRORS.SUCESSO, "Email resgatado com sucesso"));
         }
       } else {
         next(
-          createError(HTTP_ERRORS.SOLICITACAO, JSON.stringify(errors.array()))
+          createError(
+            HTTP_ERRORS.VALIDACAO_DE_DADOS,
+            JSON.stringify(errors.array())
+          )
         );
       }
     }

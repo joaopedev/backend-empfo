@@ -1,4 +1,4 @@
-import { HTTP_ERRORS } from "../../model/model";
+import { HTTP_ERRORS } from "../../models/model";
 import createError from "http-errors";
 import { Usuario } from "../../database/users";
 import { Application, NextFunction, Request, Response } from "express";
@@ -14,7 +14,7 @@ export = (app: Application) => {
     body("password").exists(),
     async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
-
+      
       if (errors.isEmpty()) {
         const email: string = req.body.email;
         const password: string = req.body.password;
@@ -48,14 +48,15 @@ export = (app: Application) => {
             })
             .catch((erro) => {
               console.error(erro);
-              next(createError(HTTP_ERRORS.ERRO_BANCO, erro));
+              next(createError(HTTP_ERRORS.ROTA_NAO_ENCONTRADA, erro));
             });
         } else {
-          next(createError(HTTP_ERRORS.ERRO_BANCO, "Email não pode ser nulo"));
+          next(createError(HTTP_ERRORS.BAD_REQUEST, "Email não pode ser nulo"));
         }
       } else {
+        const message = errors.array().map( erro => erro.msg)
         next(
-          createError(HTTP_ERRORS.SOLICITACAO, JSON.stringify(errors.array()))
+          createError(HTTP_ERRORS.SUCESSO, message[0])
         );
       }
     }
