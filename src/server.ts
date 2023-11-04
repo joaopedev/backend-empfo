@@ -1,9 +1,9 @@
-import { logger } from "./model/logger_model";
+import { logger } from "./models/logger_model";
 import express, { json, Response, NextFunction, Request } from "express";
 import createError from "http-errors";
 import helmet from "helmet";
 import cors from "cors";
-import { HTTP_ERRORS } from "./model/model";
+import { HTTP_ERRORS } from "./models/model";
 import fs from "fs";
 import path from "path";
 import morgan from "morgan";

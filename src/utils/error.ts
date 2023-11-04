@@ -1,4 +1,4 @@
-import { ErrosBDModel } from "../model/model";
+import { ErrosBDModel } from "../models/model";
 
 export function tratarErro(erro: any) {
   if (erro.code) {

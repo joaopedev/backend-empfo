@@ -1,4 +1,4 @@
-import { HTTP_ERRORS } from "../../model/model";
+import { HTTP_ERRORS } from "../../models/model";
 import createError from "http-errors";
 import { Conta } from "../../database/dbAccounts";
 import { Application, NextFunction, Request, Response } from "express";
@@ -18,7 +18,7 @@ export = (app: Application) => {
           });
         })
         .catch((erro) => {
-          next(createError(HTTP_ERRORS.ERRO_BANCO, erro));
+          next(createError(HTTP_ERRORS.VALIDACAO_DE_DADOS, erro));
         });
     }
   );
@@ -36,7 +36,7 @@ export = (app: Application) => {
           });
         })
         .catch((erro) => {
-          next(createError(HTTP_ERRORS.ERRO_BANCO, erro));
+          next(createError(HTTP_ERRORS.VALIDACAO_DE_DADOS, erro));
         });
     }
   );

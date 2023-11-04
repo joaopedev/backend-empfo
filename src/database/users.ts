@@ -1,5 +1,5 @@
 import { knex } from "../connectDB";
-import { UserModel } from "../model/model";
+import { UserModel } from "../models/model";
 import nodemailer from "nodemailer";
 import { generateToken, comparePasswords } from "../utils/bcrypt";
 
@@ -11,14 +11,19 @@ export class Usuario {
         .where("email", email)
         .then((usuarios) => {
           if (usuarios.length > 0) {
-            const usuario: UserModel = usuarios[0];
-            if (comparePasswords(senha, usuario.password)) {
-              resolve(usuario);
-            } else {
-              reject("Senha inválidas");
-            }
+            reject("E-mail já está em uso. Escolha outro e-mail.");
           } else {
-            reject("Nenhum usuário encontrado");
+            if (usuarios.length > 0) {
+              const usuario: UserModel = usuarios[0];
+              if (comparePasswords(senha, usuario.password)) {
+                resolve(usuario);
+              } else {
+                reject("Senha inválidas");
+              }
+            } else {
+              reject("Nenhum usuário encontrado");
+              // reject({ status: 404, mensagem: "Nenhum resultado encontrado" });
+            }
           }
         })
         .catch((erro) => {
@@ -27,38 +32,29 @@ export class Usuario {
     });
   }
 
-  public static createUser(
+  public static async createUser(
     email: string,
     password: string
   ): Promise<UserModel> {
-    return new Promise((resolve, reject) => {
-      if (password.length < 8) {
-        reject("A senha deve ter pelo menos 8 caracteres");
-        return;
-      }
+    if (password.length < 8) {
+      throw new Error("A senha deve ter pelo menos 8 caracteres");
+    }
 
-      knex("usuarios")
+    try {
+      const existingUser = await knex("usuarios")
         .where({ email: email })
-        .first()
-        .then((existingUser) => {
-          if (existingUser) {
-            reject("Este email já está em uso");
-          } else {
-            const user: UserModel = { email, password };
-            knex("usuarios")
-              .insert(user)
-              .then(() => {
-                resolve(user);
-              })
-              .catch((error) => {
-                reject(error);
-              });
-          }
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
+        .first();
+
+      if (existingUser) {
+        throw new Error("Este email já está em uso");
+      } else {
+        const user: UserModel = { email, password };
+        await knex("usuarios").insert(user);
+        return user;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 
   public static async forgotPassword(email: string): Promise<boolean> {
