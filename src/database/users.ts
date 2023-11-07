@@ -3,7 +3,7 @@ import { UserModel } from "../models/model";
 import nodemailer from "nodemailer";
 import { generateToken, comparePasswords } from "../utils/bcrypt";
 
-export class Usuario {
+export class UserLogin {
   public static loginUser(email: string, senha: string): Promise<UserModel> {
     return new Promise((resolve, reject) => {
       knex("usuarios")

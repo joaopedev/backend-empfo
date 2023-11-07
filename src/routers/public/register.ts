@@ -1,10 +1,11 @@
 import { body, validationResult } from "express-validator";
 import { HTTP_ERRORS, UserModel } from "../../models/model";
 import createError from "http-errors";
-import { Usuario } from "../../database/users";
+import { UserLogin } from "../../database/users";
 import { Application, NextFunction, Request, Response } from "express";
 import { tratarErro } from "../../utils/error";
 import { encodePassword } from "../../utils/bcrypt";
+import { Usuario } from "../../database/dbAccounts";
 
 export = (app: Application) => {
   app.post(
@@ -20,7 +21,7 @@ export = (app: Application) => {
         if (email && password) {
           const hashPassword = encodePassword(password);
 
-          await Usuario.createUser(email, hashPassword)
+          await UserLogin.createUser(email, hashPassword)
             .then(() => {
               res.json({ message: "Usuário cadastrado com sucesso" });
             })
@@ -44,16 +45,15 @@ export = (app: Application) => {
     }
   );
   app.get(
-    "/forgotPassword/",
-    body("email").isEmail(),
+    "/forgotPassword/:email",
     async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
 
       if (errors.isEmpty()) {
-        const { email }: UserModel = req.body;
+        const email : string = req.params.email;
 
         if (email) {
-          await Usuario.forgotPassword(email)
+          await UserLogin.forgotPassword(email)
             .then(() => {
               res.json({
                 message:
@@ -75,6 +75,27 @@ export = (app: Application) => {
           )
         );
       }
+    }
+  );
+
+  app.put(
+    "/forgotWithToken/:token",
+    async (req: Request, res: Response, next: NextFunction) => {
+      const token = req.params.token;
+      const newPassword = req.body.newPassword;
+      const hashPassword = encodePassword(newPassword);
+
+      await Usuario.updateForgotPassword(token, hashPassword)
+        .then((result) => {
+          if (result) {
+            res.json({ message: "Senha atualizada com sucesso" });
+          } else {
+            res.status(404).json({ message: "Usuário não encontrado" });
+          }
+        })
+        .catch((erro) => {
+          next(createError(HTTP_ERRORS.ERRO_INTERNO, erro));
+        });
     }
   );
 };

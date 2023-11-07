@@ -1,7 +1,7 @@
 import { UserModel } from "../models/model";
 import { knex } from "../connectDB";
 
-export class Conta {
+export class Usuario {
   public static async getUsers(
     id_usuario?: string | undefined
   ): Promise<UserModel[]> {
@@ -16,15 +16,13 @@ export class Conta {
     return user || null;
   }
 
-  public static async forgotPassword(
-    email: string,
-    token: string
-  ): Promise<UserModel | null> {
+  public static async updateForgotPassword(
+    token: string,
+    newPassword: string
+  ): Promise<number | null> {
     const user = await knex("usuarios")
-      .select("*")
       .where("passwordResetToken", token)
-      .where("email", email)
-      .first();
+      .update({ password: newPassword });
 
     return user || null;
   }
