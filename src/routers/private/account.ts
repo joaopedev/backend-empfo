@@ -1,6 +1,6 @@
 import { HTTP_ERRORS } from "../../models/model";
 import createError from "http-errors";
-import { Conta } from "../../database/dbAccounts";
+import { Usuario } from "../../database/dbAccounts";
 import { Application, NextFunction, Request, Response } from "express";
 import { encodePassword } from "../../utils/bcrypt";
 
@@ -10,7 +10,7 @@ export = (app: Application) => {
     async (req: Request, res: Response, next: NextFunction) => {
       let id_usuario = <string>req.query.id_usuario;
 
-      await Conta.getUsers(id_usuario)
+      await Usuario.getUsers(id_usuario)
         .then((contas) => {
           res.json({
             message: "Contas recuperadas com sucesso",
@@ -28,7 +28,7 @@ export = (app: Application) => {
     async (req: Request, res: Response, next: NextFunction) => {
       let id_usuario = req.params.id;
 
-      await Conta.getUserById(id_usuario)
+      await Usuario.getUserById(id_usuario)
         .then((contas) => {
           res.json({
             message: "Contas recuperadas com sucesso",
@@ -48,28 +48,7 @@ export = (app: Application) => {
       const newPassword = req.body.newPassword;
       const hashPassword = encodePassword(newPassword);
 
-      await Conta.updateUserPassword(id_usuario, hashPassword)
-        .then((result) => {
-          if (result) {
-            res.json({ message: "Senha atualizada com sucesso" });
-          } else {
-            res.status(404).json({ message: "Usuário não encontrado" });
-          }
-        })
-        .catch((erro) => {
-          next(createError(HTTP_ERRORS.ERRO_INTERNO, erro));
-        });
-    }
-  );
-
-  app.put(
-    "/private/forgotWithToken/:token",
-    async (req: Request, res: Response, next: NextFunction) => {
-      const id_usuario = req.params.id;
-      const newPassword = req.body.newPassword;
-      const hashPassword = encodePassword(newPassword);
-
-      await Conta.updateUserPassword(id_usuario, hashPassword)
+      await Usuario.updateUserPassword(id_usuario, hashPassword)
         .then((result) => {
           if (result) {
             res.json({ message: "Senha atualizada com sucesso" });
@@ -88,7 +67,7 @@ export = (app: Application) => {
     async (req: Request, res: Response, next: NextFunction) => {
       const id_usuario = req.params.id;
 
-      await Conta.deleteUser(id_usuario)
+      await Usuario.deleteUser(id_usuario)
         .then((result) => {
           if (result) {
             res.json({ message: "Usuário deletado com sucesso" });
