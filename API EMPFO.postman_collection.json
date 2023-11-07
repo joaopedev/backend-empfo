@@ -44,7 +44,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/private/accountById/c79a4a33-0c5a-49e8-8f4d-efcde7c33300",
+					"raw": "http://localhost:3000/private/accountById/57900c6d-da0f-483e-acfb-af937c7a5c3b",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -53,7 +53,7 @@
 					"path": [
 						"private",
 						"accountById",
-						"c79a4a33-0c5a-49e8-8f4d-efcde7c33300"
+						"57900c6d-da0f-483e-acfb-af937c7a5c3b"
 					],
 					"query": [
 						{
@@ -82,7 +82,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"yaghuinhomatheus@teste.com\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -90,19 +90,25 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/forgotPassword",
+					"raw": "http://localhost:3000/forgotPassword/tevinhobonito@teste.com",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"forgotPassword"
+						"forgotPassword",
+						"tevinhobonito@teste.com"
 					],
 					"query": [
 						{
 							"key": "AUTHORIZATION",
 							"value": "production",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "tevinhobonito@teste.com",
 							"disabled": true
 						}
 					]
@@ -168,7 +174,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/private/updateAccount/b7280c09-979a-4543-affb-b45389f35c13?AUTHORIZATION=production",
+					"raw": "http://localhost:3000/private/updateAccount/c3e38099-4cbe-4255-9450-0367a6606633?AUTHORIZATION=production",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -177,13 +183,51 @@
 					"path": [
 						"private",
 						"updateAccount",
-						"b7280c09-979a-4543-affb-b45389f35c13"
+						"c3e38099-4cbe-4255-9450-0367a6606633"
 					],
 					"query": [
 						{
 							"key": "AUTHORIZATION",
 							"value": "production"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar senha com esqueci minha senha",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "AUTHORIZATION",
+						"value": "production",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPassword\":\"trocadairmao\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/forgotWithToken/481413",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"forgotWithToken",
+						"481413"
 					]
 				}
 			},
@@ -238,7 +282,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"teste@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"raw": "{\r\n  \"email\": \"cergovinha@teste.com\",\r\n  \"password\":\"123456777\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -272,7 +316,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"teste@teste.com\",\r\n  \"password\":\"teste\" \r\n}",
+					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"12345678\" \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -306,7 +350,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"email\": \"soteldo@teste.com\",\r\n  \"password\":\"testa\" \r\n}",
+					"raw": "{\r\n  \"email\": \"soteldo@test.com\",\r\n  \"password\": \"12345678\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
