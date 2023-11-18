@@ -18,11 +18,12 @@ export class Usuario {
 
   public static async updateForgotPassword(
     token: string,
-    newPassword: string
   ): Promise<number | null> {
     const user = await knex("usuarios")
+      .select("*")
       .where("passwordResetToken", token)
-      .update({ password: newPassword });
+      .first()
+
 
     return user || null;
   }
