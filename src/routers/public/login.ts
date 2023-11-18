@@ -1,6 +1,6 @@
 import { HTTP_ERRORS } from "../../models/model";
 import createError from "http-errors";
-import { Usuario } from "../../database/users";
+import { UserLogin } from "../../database/users";
 import { Application, NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
@@ -20,7 +20,7 @@ export = (app: Application) => {
         const password: string = req.body.password;
 
         if (email) {
-          await Usuario.loginUser(email, password)
+          await UserLogin.loginUser(email, password)
             .then((usuario) => {
               if (usuario) {
                 if (comparePasswords(password, usuario.password)) {

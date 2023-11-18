@@ -10,9 +10,6 @@ export class UserLogin {
         .select("*")
         .where("email", email)
         .then((usuarios) => {
-          if (usuarios.length > 0) {
-            reject("E-mail já está em uso. Escolha outro e-mail.");
-          } else {
             if (usuarios.length > 0) {
               const usuario: UserModel = usuarios[0];
               if (comparePasswords(senha, usuario.password)) {
@@ -22,9 +19,8 @@ export class UserLogin {
               }
             } else {
               reject("Nenhum usuário encontrado");
-              // reject({ status: 404, mensagem: "Nenhum resultado encontrado" });
             }
-          }
+          
         })
         .catch((erro) => {
           reject(erro);
@@ -94,7 +90,7 @@ export class UserLogin {
 
       const mailOptions = {
         from: "noreplay@empfo.com.br",
-        to: "joaopedev@outlook.com",
+        to: `${user.email}`,
         subject: "Recuperação de Senha",
         html: `<p>Olá ${user.email},</p>
         <p>Você solicitou a redefinição da sua senha. Utilize este token para recuperar a senha:</p>

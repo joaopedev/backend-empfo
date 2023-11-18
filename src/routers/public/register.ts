@@ -78,19 +78,18 @@ export = (app: Application) => {
     }
   );
 
-  app.put(
+  app.get(
     "/forgotWithToken/:token",
     async (req: Request, res: Response, next: NextFunction) => {
       const token = req.params.token;
       const newPassword = req.body.newPassword;
-      const hashPassword = encodePassword(newPassword);
 
-      await Usuario.updateForgotPassword(token, hashPassword)
+      await Usuario.updateForgotPassword(token)
         .then((result) => {
           if (result) {
-            res.json({ message: "Senha atualizada com sucesso" });
+            res.json({ message: "Token valido" });
           } else {
-            res.status(404).json({ message: "Usuário não encontrado" });
+            res.status(404).json({ message: "Token invalido" });
           }
         })
         .catch((erro) => {
