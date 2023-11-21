@@ -31,7 +31,7 @@ export = (app: Application) => {
       await Usuario.getUserById(id_usuario)
         .then((contas) => {
           res.json({
-            message: "Contas recuperadas com sucesso",
+            message: "Conta recuperada com sucesso",
             contas: contas,
           });
         })

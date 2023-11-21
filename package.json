@@ -8,7 +8,7 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Joao Pedro Sousa e Silva",
   "license": "ISC",
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.4",
