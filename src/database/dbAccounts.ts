@@ -17,24 +17,25 @@ export class Usuario {
   }
 
   public static async updateForgotPassword(
-    token: string,
+    token: string
   ): Promise<number | null> {
     const user = await knex("usuarios")
       .select("*")
       .where("passwordResetToken", token)
-      .first()
-
+      .first();
 
     return user || null;
   }
 
-  public static async getUserByEmail(email: string): Promise<UserModel | null> {
+  public static async resetUserPassword(
+    email: string,
+    newPassword: string
+  ): Promise<boolean> {
     const user = await knex("usuarios")
-      .select("*")
       .where("email", email)
-      .first();
+      .update({ password: newPassword });
 
-    return user || null;
+    return user > 0;
   }
 
   public static async updateUserPassword(

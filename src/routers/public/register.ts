@@ -11,10 +11,13 @@ export = (app: Application) => {
   app.post(
     "/registerUsers",
     body("email").isEmail(),
-    body("password").exists().isLength({ min: 8 }).withMessage("A senha deve conter pelo menos 8 caracteres"),
+    body("password")
+      .exists()
+      .isLength({ min: 8 })
+      .withMessage("A senha deve conter pelo menos 8 caracteres"),
     async (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
-      console.log(errors)
+
       if (errors.isEmpty()) {
         const { email, password }: UserModel = req.body;
 
@@ -50,7 +53,7 @@ export = (app: Application) => {
       const errors = validationResult(req);
 
       if (errors.isEmpty()) {
-        const email : string = req.params.email;
+        const email: string = req.params.email;
 
         if (email) {
           await UserLogin.forgotPassword(email)
@@ -82,7 +85,6 @@ export = (app: Application) => {
     "/forgotWithToken/:token",
     async (req: Request, res: Response, next: NextFunction) => {
       const token = req.params.token;
-      const newPassword = req.body.newPassword;
 
       await Usuario.updateForgotPassword(token)
         .then((result) => {
@@ -90,6 +92,26 @@ export = (app: Application) => {
             res.json({ message: "Token valido" });
           } else {
             res.status(404).json({ message: "Token invalido" });
+          }
+        })
+        .catch((erro) => {
+          next(createError(HTTP_ERRORS.ERRO_INTERNO, erro));
+        });
+    }
+  );
+
+  app.put(
+    "/resetPassword/:email",
+    async (req: Request, res: Response, next: NextFunction) => {
+      const email = req.params.email;
+      const newPassword = req.body.newPassword;
+      const hashPassword = encodePassword(newPassword);
+      await Usuario.resetUserPassword(email, hashPassword)
+        .then((result) => {
+          if (result) {
+            res.json({ message: "Senha atualizada com sucesso" });
+          } else {
+            res.status(404).json({ message: "Usuário não encontrado" });
           }
         })
         .catch((erro) => {

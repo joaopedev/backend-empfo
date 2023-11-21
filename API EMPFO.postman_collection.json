@@ -211,7 +211,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"newPassword\":\"trocadairmao\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -219,7 +219,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/forgotWithToken/481413",
+					"raw": "http://localhost:3000/forgotWithToken/933461",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -227,7 +227,7 @@
 					"port": "3000",
 					"path": [
 						"forgotWithToken",
-						"481413"
+						"933461"
 					]
 				}
 			},
