@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploydb": "knex migrate:latest --env production"
   },
   "author": "Joao Pedro Sousa e Silva",
   "license": "ISC",
