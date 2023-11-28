@@ -5,3 +5,4 @@ ToDo.txt
 /public
 .env
 logs
+.vercel

@@ -1,6 +1,14 @@
 version: '3.1'
 
 services:
+  app:
+    build: .
+    container_name: backend-empfo
+    command: sh -c "npm run migrate"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
   db:
     image: postgres
     volumes:
