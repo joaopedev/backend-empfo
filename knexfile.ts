@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: "postgresql",
+    client: "pg",
     connection: {
       user: process.env.USER_BD,
       password: process.env.PASSWORD_BD,
