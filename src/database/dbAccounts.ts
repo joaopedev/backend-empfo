@@ -3,10 +3,10 @@ import { knex } from "../connectDB";
 
 export class Usuario {
   public static async getUsers(
-    id_usuario?: string | undefined
+    id?: string | undefined
   ): Promise<UserModel[]> {
     let sql = knex("usuarios").select("*").orderBy("id");
-    if (id_usuario) sql.where("id_usuario", id_usuario);
+    if (id) sql.where("id", id);
     return sql;
   }
 
