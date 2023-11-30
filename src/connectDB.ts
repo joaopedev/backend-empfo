@@ -4,11 +4,11 @@ require("dotenv").config();
 export const knex = Knex({
   client: "pg",
   connection: {
-    host: process.env.HOST_BD,
-    port: Number(process.env.PORT_BD),
-    user: process.env.USER_BD,
-    password: process.env.PASSWORD_BD,
-    database: process.env.NAME_BD,
+    host: process.env.PGHOST,
+    port: Number(process.env.PGPORT),
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
   },
   pool: {
     min: 1,
