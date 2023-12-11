@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploydb": "knex migrate:latest --env production"
+    "postinstall": "npm run migrate",
+    "migrate": "knex migrate:latest --env production"
   },
   "author": "Joao Pedro Sousa e Silva",
   "license": "ISC",
