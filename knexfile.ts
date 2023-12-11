@@ -1,21 +1,21 @@
 import type { Knex } from "knex";
-
-// Update with your config settings.
+require("dotenv").config();
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: "pg",
+    client: "sqlite3",
     connection: {
-      user: "postgres",
-      password: "postgres",
-      database: "dbempfo"
+      user: process.env.PGHOST,
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: "knex_migrations"
+      tableName: "knex_migrations",
+      directory: './migrations',
     }
   },
 };
