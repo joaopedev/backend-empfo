@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This is the API for backend EMPFO application.",
   "main": "index.js",
+  "engines": {
+    "node": "18.18.1"
+  },
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "tsc",
