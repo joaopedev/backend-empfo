@@ -5,7 +5,7 @@ const config: { [key: string]: Knex.Config } = {
   development: {
     client: "sqlite3",
     connection: {
-      user: process.env.PGHOST,
+      user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
       database: process.env.PGDATABASE,
     },
