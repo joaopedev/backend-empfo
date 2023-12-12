@@ -19,6 +19,15 @@ const config: { [key: string]: Knex.Config } = {
       directory: "./migrations",
     },
   },
-};
+  development: {
+    client: 'pg',
+    connection: {
+      host: process.env.PGHOST,
+      user: process.env.PGUSER,
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE,
+      port: 5432
+    },
+  }}
 
 module.exports = config;
