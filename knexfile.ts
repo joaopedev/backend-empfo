@@ -26,6 +26,10 @@ const config: { [key: string]: Knex.Config } = {
   test: {
     client: "pg",
     connection: {
+      connectionString: process.env.PGHOST,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       host: process.env.PGHOST ,
       user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
