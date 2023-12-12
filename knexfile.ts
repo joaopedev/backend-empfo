@@ -9,6 +9,7 @@ const config: { [key: string]: Knex.Config } = {
       ssl: {
         rejectUnauthorized: false,
       },
+      uri: process.env.PGURI,
       host: process.env.PGHOST,
       user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
@@ -30,6 +31,7 @@ const config: { [key: string]: Knex.Config } = {
       ssl: {
         rejectUnauthorized: false,
       },
+      uri: process.env.PGURI,
       host: process.env.PGHOST ,
       user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
