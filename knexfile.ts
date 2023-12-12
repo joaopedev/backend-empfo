@@ -5,7 +5,7 @@ const config: { [key: string]: Knex.Config } = {
   production: {
     client: "pg",
     connection: {
-      host:process.env.PGHOST,
+      host: process.env.PGHOST,
       user: process.env.PGUSER,
       password: process.env.PGPASSWORD,
       database: process.env.PGDATABASE,
@@ -18,7 +18,7 @@ const config: { [key: string]: Knex.Config } = {
       tableName: "knex_migrations",
       directory: "./migrations",
     },
-  }
+  },
 };
 
 module.exports = config;
