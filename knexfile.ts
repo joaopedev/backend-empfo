@@ -3,12 +3,9 @@ require("dotenv").config();
 
 const config: { [key: string]: Knex.Config } = {
   production: {
-    client: "pg",
+    client: "postgresql",
     connection: {
       connectionString: process.env.PGHOST,
-      ssl: {
-        rejectUnauthorized: false,
-      },
       uri: process.env.PGURI,
       host: process.env.PGHOST,
       user: process.env.PGUSER,
