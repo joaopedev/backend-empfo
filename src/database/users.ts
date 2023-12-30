@@ -2,6 +2,7 @@ import { knex } from "../connectDB";
 import { UserModel } from "../models/model";
 import nodemailer from "nodemailer";
 import { generateToken, comparePasswords } from "../utils/bcrypt";
+require("dotenv").config();
 
 export class UserLogin {
   public static loginUser(email: string, senha: string): Promise<UserModel> {
@@ -9,20 +10,19 @@ export class UserLogin {
       knex("usuarios")
         .select("*")
         .where("email", email)
-        .then((usuarios) => {
-            if (usuarios.length > 0) {
-              const usuario: UserModel = usuarios[0];
-              if (comparePasswords(senha, usuario.password)) {
-                resolve(usuario);
-              } else {
-                reject("Senha inválidas");
-              }
+        .then((usuarios: string | any[]) => {
+          if (usuarios.length > 0) {
+            const usuario: UserModel = usuarios[0];
+            if (comparePasswords(senha, usuario.password)) {
+              resolve(usuario);
             } else {
-              reject("Nenhum usuário encontrado");
+              reject("Senha incorreta.");
             }
-          
+          } else {
+            reject("Nenhum usuário encontrado");
+          }
         })
-        .catch((erro) => {
+        .catch((erro: any) => {
           reject(erro);
         });
     });
@@ -55,7 +55,7 @@ export class UserLogin {
 
   public static async forgotPassword(email: string): Promise<boolean> {
     try {
-      const user: UserModel = await knex("usuarios")
+      const user: UserModel | undefined = await knex("usuarios")
         .where("email", email)
         .first();
 
@@ -63,8 +63,8 @@ export class UserLogin {
         throw new Error("Usuário não encontrado");
       }
 
-      const resetToken = generateToken();
-      const now = new Date();
+      const resetToken: string = generateToken();
+      const now: Date = new Date();
       now.setHours(now.getHours() + 1);
 
       await knex("usuarios").where("id", user.id).update({
@@ -79,23 +79,23 @@ export class UserLogin {
         });
       }, 3600000);
 
-      var transporter = nodemailer.createTransport({
-        host: "sandbox.smtp.mailtrap.io",
-        port: 2525,
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
         auth: {
-          user: "fc21c9c3a78b2a",
-          pass: "0d33ae7055934c",
+          user: process.env.USER_GMAIL,
+          pass: process.env.USER_GMAIL_PASSWORD,
         },
       });
 
       const mailOptions = {
-        from: "noreplay@empfo.com.br",
+        from: "contaparaoaplicativo46@gmail.com",
         to: `${user.email}`,
         subject: "Recuperação de Senha",
         html: `<p>Olá ${user.email},</p>
-        <p>Você solicitou a redefinição da sua senha. Utilize este token para recuperar a senha:</p>
-        <p>${resetToken}</p>
-        <p>Se você não solicitou a redefinição de senha, ignore este e-mail.</p>`,
+          <p>Você solicitou a redefinição da sua senha. Utilize este token para recuperar a senha:</p>
+          <p>${resetToken}</p>
+          <p>Se você não solicitou a redefinição de senha, ignore este e-mail.</p>`,
       };
 
       await transporter.sendMail(mailOptions);
