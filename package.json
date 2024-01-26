@@ -2,7 +2,7 @@
   "name": "backend-empfo",
   "version": "1.0.0",
   "description": "This is the API for backend EMPFO application.",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "18.18.1"
   },
