@@ -30,11 +30,11 @@ export = (app: Application) => {
             })
             .catch((erro) => {
               console.error(erro);
-              next(createError(HTTP_ERRORS.BAD_REQUEST, tratarErro(erro)));
+              next(createError(HTTP_ERRORS.VALIDACAO_DE_DADOS, tratarErro(erro)));
             });
         } else {
           next(
-            createError(HTTP_ERRORS.BAD_REQUEST, "Email ou senha inválidos")
+            createError(HTTP_ERRORS.VALIDACAO_DE_DADOS, "Email ou senha inválidos")
           );
         }
       } else {

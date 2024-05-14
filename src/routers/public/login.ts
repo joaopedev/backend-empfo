@@ -48,10 +48,10 @@ export = (app: Application) => {
             })
             .catch((erro) => {
               console.error(erro);
-              next(createError(HTTP_ERRORS.ROTA_NAO_ENCONTRADA, erro));
+              next(createError(HTTP_ERRORS.REGISTRO_NAO_ENCONTRADO, erro));
             });
         } else {
-          next(createError(HTTP_ERRORS.BAD_REQUEST, "Email não pode ser nulo"));
+          next(createError(HTTP_ERRORS.REGISTRO_NAO_ENCONTRADO, "Email não pode ser nulo"));
         }
       } else {
         const message = errors.array().map( erro => erro.msg)

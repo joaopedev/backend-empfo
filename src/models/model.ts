@@ -2,7 +2,6 @@ export enum HTTP_ERRORS {
   SUCESSO = 200, // Sucesso na criação do cadastro
   BAD_REQUEST = 400, // Dados inválidos
   ACESSO_NAO_AUTORIZADO = 401, // Não autorizado para criar cadastro
-  ROTA_NAO_ENCONTRADA = 404, // Rota não encontrada
   ERRO_INTERNO = 500, // Erro interno do servidor
   ERRO_API_EXTERNA = 403, // Erro ao realizar uma solicitação externa
   DUPLICACAO_DE_DADOS = 409, // Cadastro duplicado
