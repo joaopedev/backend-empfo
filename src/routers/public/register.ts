@@ -91,7 +91,7 @@ export = (app: Application) => {
           if (result) {
             res.json({ message: "Token valido" });
           } else {
-            res.status(404).json({ message: "Token invalido" });
+            res.status(404).json({ message: "Token inválido" });
           }
         })
         .catch((erro) => {

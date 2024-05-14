@@ -101,7 +101,7 @@ export class UserLogin {
       await transporter.sendMail(mailOptions);
       return true;
     } catch (error) {
-      throw new Error("Erro ao enviar o e-mail de recuperação de senha");
+      throw new Error("Email inválido");
     }
   }
 }
